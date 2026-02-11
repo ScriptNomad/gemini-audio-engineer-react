@@ -1,0 +1,45 @@
+DISTRIBUTION LICENSE
+
+This project is a modified fork of "Gemini Audio Engineer".
+Original Code Copyright © 2026 Anthony Galati
+Modifications (Dockerization, API Upgrades) Copyright © 2026 ScriptNomad
+
+This software is provided under the original Non-Commercial / Research License terms below.
+
+----------------------------------------------------------------
+ORIGINAL LICENSE TERMS
+----------------------------------------------------------------
+
+1. Non-Commercial / Research License (Free)
+----------------------------------------------------------------
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to use, study, modify, and experiment with the Software
+for personal, educational, research, or non-commercial purposes only.
+
+This license explicitly does NOT grant permission to:
+- sell the Software,
+- sublicense the Software for a fee,
+- include the Software in a commercial product or service,
+- offer the Software or derivative works as a paid tool, plugin,
+  SaaS product, or commercial workflow,
+- redistribute the Software or derivative works for profit.
+
+Redistribution of modified or unmodified versions of the Software
+is permitted only if it remains non-commercial and includes this
+license notice in full.
+
+----------------------------------------------------------------
+2. Commercial License (Paid / Explicit Permission Required)
+----------------------------------------------------------------
+Any use of this Software for commercial purposes requires a separate
+commercial license granted by the original copyright holder.
+
+To obtain a commercial license for the original work, contact:
+ferm@realferm.com
+
+----------------------------------------------------------------
+3. Ownership
+----------------------------------------------------------------
+All rights not expressly granted under this license are reserved by
+the copyright holder.
