@@ -73,18 +73,52 @@ If you are installing this on a home server and accessing it from a different co
 * **Environment Variable:** `GEMINI_API_KEY` = `your_actual_google_api_key`
 * **Environment Variable:** `VITE_API_URL` = `http://YOUR_SERVER_IP:9002`
 
-### 🐳 TrueNAS Scale Installation Guide
-1.  **Application Name:** `audio-engineer`
-2.  **Container Image:**
-    * Repository: `dockerizer000/audio-engineer`
-    * Tag: `latest`
-3.  **Port Forwarding:**
-    * Container Port `5173` -> Host Port `9001`
-    * Container Port `8000` -> Host Port `9002`
-4.  **Environment Variables:**
-    * `GEMINI_API_KEY`: (Paste your key)
-    * `VITE_API_URL`: `http://192.168.x.x:9002` (Replace with your actual NAS IP)
-    * *Note: If you skip `VITE_API_URL`, the frontend will try to connect to localhost, which will fail on other devices.*
+## 🐳 TrueNAS Scale Installation Guide
+
+This application can be deployed on TrueNAS Scale as a **Custom App**. Follow these steps to get it running in minutes.
+
+### 1. Application Name & Version
+* **Application Name:** `audio-engineer`
+* **Version:** `1.0.0` (or leave default)
+
+### 2. Container Configuration
+* **Repository:** `dockerizer000/audio-engineer`
+* **Tag:** `latest`
+* **Image Pull Policy:** `Always` (Recommended to ensure you get the latest updates)
+
+### 3. Network Configuration (Port Forwarding)
+You must expose **two** ports for the application to function: one for the user interface (Frontend) and one for the AI processing (Backend).
+
+* **Port 1 (Frontend):**
+    * **Container Port:** `5173`
+    * **Node Port:** `9001` (or any available port greater than 9000)
+* **Port 2 (Backend API):**
+    * **Container Port:** `8000`
+    * **Node Port:** `9002` (or any available port greater than 9000)
+
+### 4. Environment Variables
+Add the following variables in the **Environment Variables** section.
+
+| Name | Value | Description |
+| :--- | :--- | :--- |
+| `GEMINI_API_KEY` | `your_google_api_key` | **Required.** Your API key from Google AI Studio. |
+| `OPENAI_API_KEY` | `your_openai_api_key` | **Optional.** Only required if you want to use GPT-4o Audio mode. |
+| `VITE_API_URL` | `http://YOUR_NAS_IP:9002` | **Critical.** This tells the frontend where the backend lives. |
+
+> **⚠️ Important Note on `VITE_API_URL`:**
+> You must replace `YOUR_NAS_IP` with the actual IP address of your TrueNAS server (e.g., `http://192.168.1.50:9002`).
+> If you skip this, the app will try to connect to `localhost`, which will fail when accessing it from other computers.
+
+### 5. Portal Configuration (Optional)
+To make the "Web Portal" button in TrueNAS open the correct page:
+
+1.  Click **Add** in the Portal Configuration section.
+2.  **Portal Name:** `Web UI`
+3.  **Protocol:** `HTTP`
+4.  **Port:** `9001` (Must match the Node Port you set for the Frontend)
+5.  **Path:** `/`
+
+Click **Save** and wait for the application to deploy.
 
 ---
 
