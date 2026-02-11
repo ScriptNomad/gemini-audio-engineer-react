@@ -18,7 +18,7 @@ export default function Waveform({ file, onSelectionChange }) {
     const audioUrl = URL.createObjectURL(file);
     let isAborted = false;
 
-    // Destroy previous instance
+    // Destroy previous instance if it exists
     if (wsRef.current) {
       try {
         wsRef.current.destroy();
@@ -89,27 +89,35 @@ export default function Waveform({ file, onSelectionChange }) {
       });
     });
 
-    // Load Audio
-    ws.load(audioUrl);
+    // SAFER LOAD: Async load with try/catch to handle aborts
+    (async () => {
+      try {
+        await ws.load(audioUrl);
+      } catch (err) {
+        // Only log real errors, ignore aborts/interruptions
+        if (!isAborted && err.name !== 'AbortError') {
+            console.warn("WaveSurfer load error:", err);
+        }
+      }
+    })();
 
-    // CLEANUP
+    // CLEANUP FUNCTION
     return () => {
       isAborted = true;
       URL.revokeObjectURL(audioUrl);
       
       if (ws) {
+        // Stop audio first
+        try { ws.pause(); } catch (e) {}
+        
+        // Unsubscribe all events
+        try { ws.unAll(); } catch (e) {}
+
+        // Destroy instance safely
         try {
-          // Stop audio first
-          ws.pause();
-          // Unsubscribe events
-          ws.unAll(); 
-          // Destroy instance
           ws.destroy();
         } catch (err) {
-          // Ignore the 'AbortError' from fetch/load
-          if (err.name !== 'AbortError' && err.message !== 'The operation was aborted') {
-             console.warn("WaveSurfer cleanup ignored:", err);
-          }
+          // Completely ignore errors during cleanup (e.g. AbortError)
         }
       }
       wsRef.current = null;

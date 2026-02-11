@@ -10,7 +10,9 @@ This is a containerized deployment of the **Gemini Audio Engineer**, a powerful 
 ## 🚀 Features
 * **Waveform Analysis:** Upload WAV, MP3, or FLAC files and select specific regions for detailed inspection.
 * **Spectrogram Visualization:** Automatically generates Mel-frequency spectrograms to identify frequency clashes and mix issues.
-* **AI Consultation:** Get professional mixing and mastering feedback using Google Gemini (3.0 Pro/Flash) or OpenAI GPT-4o Audio models.
+* **Dual AI Engines:**
+    * **Google Gemini 3.0:** Full multimodal analysis (listens to audio + looks at spectrograms) with "Thinking" capabilities.
+    * **OpenAI GPT-4o:** Native audio analysis for alternative feedback perspectives.
 * **Chord & Beat Detection:** Built-in Vamp Plugins (Queen Mary & Chordino) detect chords, tempo, and beats automatically.
 * **Interactive Chat:** Have a follow-up conversation with the AI to drill down into specific production techniques.
 
@@ -25,12 +27,24 @@ You can run the entire stack with a single command. You will need a Google Gemin
 docker run -d \
   -p 5173:5173 \
   -p 8000:8000 \
-  -e GEMINI_API_KEY="your_actual_api_key_here" \
+  -e GEMINI_API_KEY="your_google_key" \
+  -e OPENAI_API_KEY="your_openai_key" \
   --name audio-engineer \
   dockerizer000/audio-engineer:latest
 ```
 
 Once running, access the application at: **http://localhost:5173**
+
+---
+
+## 🧠 Model Capabilities
+
+| Feature | Google Gemini (3.0 Pro/Flash) | OpenAI (GPT-4o Audio) |
+| :--- | :--- | :--- |
+| **Audio Analysis** | ✅ Native Audio Support | ✅ Native Audio Support |
+| **Visual Analysis** | ✅ Sees Spectrograms | ❌ Audio Only |
+| **Reasoning** | ✅ Thinking/Reasoning Models | ❌ Standard Chat |
+| **Best For...** | Deep dives, frequency visual checks | Alternative opinions, quick mix tips |
 
 ---
 
@@ -40,7 +54,7 @@ Once running, access the application at: **http://localhost:5173**
 | Variable | Description | Required | Default |
 | :--- | :--- | :--- | :--- |
 | `GEMINI_API_KEY` | Your Google AI Studio API Key. | **Yes** (if using Gemini) | N/A |
-| `OPENAI_API_KEY` | Your OpenAI API Key. | No (only for GPT models) | N/A |
+| `OPENAI_API_KEY` | Your OpenAI API Key. | **Yes** (if using GPT) | N/A |
 | `VITE_API_URL` | The URL of the backend. Set this if running on a server (e.g., TrueNAS) to allow the frontend to connect. | No | `http://localhost:8000` |
 
 ### Ports
@@ -80,7 +94,7 @@ If you want to modify the code or build the image yourself:
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/YourUsername/gemini-audio-engineer-react.git](https://github.com/YourUsername/gemini-audio-engineer-react.git)
+    git clone https://github.com/ScriptNomad/gemini-audio-engineer-react.git
     cd gemini-audio-engineer-react
     ```
 

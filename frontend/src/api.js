@@ -1,66 +1,87 @@
-import API_BASE_URL from './config';
+import API_BASE_URL from "./config";
 
-// This tells React: "Use the variable if it exists, otherwise use localhost"
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+/**
+ * Helper to handle HTTP errors
+ */
+async function handleResponse(res) {
+  if (!res.ok) {
+    let errorDetail = "";
+    try {
+      const errorJson = await res.json();
+      errorDetail = errorJson.detail || JSON.stringify(errorJson);
+    } catch (e) {
+      errorDetail = res.statusText;
+    }
+    throw new Error(`Error ${res.status}: ${errorDetail}`);
+  }
+  return res.json();
+}
 
+/**
+ * 1. Generate Spectrogram (Preview)
+ */
 export async function fetchSpectrogram({ file, startSec, endSec }) {
-  const fd = new FormData();
-  fd.append("file", file);
-  fd.append("startSec", String(startSec));
-  fd.append("endSec", String(endSec));
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("startSec", startSec);
+  formData.append("endSec", endSec);
 
+  // CHANGED: Prepend API_BASE_URL
   const res = await fetch(`${API_BASE_URL}/api/spectrogram`, {
     method: "POST",
-    body: fd,
+    body: formData,
   });
-
-  if (!res.ok) {
-    const msg = await res.text();
-    throw new Error(msg || "Failed to generate spectrogram.");
-  }
-  return res.json();
+  return handleResponse(res);
 }
 
-export async function analyzeAudio({ file, startSec, endSec, prompt, modelId, temperature, thinkingBudget, mode, bpm, chords }) {
-  const fd = new FormData();
-  fd.append("file", file);
-  fd.append("startSec", String(startSec));
-  fd.append("endSec", String(endSec));
-  fd.append("prompt", prompt);
-  fd.append("modelId", modelId);
-  fd.append("temperature", String(temperature));
-  if (thinkingBudget) fd.append("thinkingBudget", String(thinkingBudget));
-  fd.append("mode", mode || "engineer");
+/**
+ * 2. Analyze Audio (Main Session)
+ */
+export async function analyzeAudio({ 
+  file, 
+  startSec, 
+  endSec, 
+  prompt, 
+  modelId, 
+  temperature, 
+  thinkingBudget,
+  mode,
+  bpm,
+  chords
+}) {
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("startSec", startSec);
+  formData.append("endSec", endSec);
+  formData.append("prompt", prompt);
+  formData.append("modelId", modelId);
+  formData.append("temperature", String(temperature));
+  formData.append("thinkingBudget", String(thinkingBudget));
+  formData.append("mode", mode);
 
-  // Pass user-edited BPM and chords for Producer mode
-  if (bpm) fd.append("bpm", String(bpm));
-  if (chords && chords.length > 0) fd.append("chords", JSON.stringify(chords));
+  if (bpm) formData.append("bpm", String(bpm));
+  if (chords && chords.length > 0) formData.append("chords", JSON.stringify(chords));
 
+  // CHANGED: Prepend API_BASE_URL
   const res = await fetch(`${API_BASE_URL}/api/analyze`, {
     method: "POST",
-    body: fd,
+    body: formData,
   });
-
-  if (!res.ok) {
-    const msg = await res.text();
-    throw new Error(msg || "Failed to analyze audio.");
-  }
-  return res.json();
+  return handleResponse(res);
 }
 
+/**
+ * 3. Send Chat Reply
+ */
 export async function sendChatMessage(sessionId, message) {
-  const fd = new FormData();
-  fd.append("sessionId", sessionId);
-  fd.append("message", message);
+  const formData = new FormData();
+  formData.append("sessionId", sessionId);
+  formData.append("message", message);
 
+  // CHANGED: Prepend API_BASE_URL
   const res = await fetch(`${API_BASE_URL}/api/chat`, {
     method: "POST",
-    body: fd,
+    body: formData,
   });
-
-  if (!res.ok) {
-    const msg = await res.text();
-    throw new Error(msg || "Failed to send message.");
-  }
-  return res.json();
+  return handleResponse(res);
 }
