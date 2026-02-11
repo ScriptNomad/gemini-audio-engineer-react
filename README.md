@@ -1,21 +1,22 @@
 # 🎛️ AI Audio Engineer (Dockerized)
 
-**Your intelligent mixing assistant in a container.**
+**Your intelligent mixing and production consultant in a container.**
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![License](https://img.shields.io/badge/license-Non--Commercial-orange)
-![Docker](https://img.shields.io/badge/deployment-Docker-green)
+![Deployment](https://img.shields.io/badge/deployment-Docker-green)
 
-This is a containerized deployment of the **Gemini Audio Engineer**, a powerful tool that combines visual audio analysis with AI-powered mixing advice. It bundles a React frontend, a FastAPI backend, and specialized audio processing tools (Sonic Annotator & Vamp Plugins) into a single, ready-to-run Docker image.
+This is a containerized deployment of the **AI Audio Engineer**, a powerful tool that provides expert-level critiques of your audio tracks. It combines visual spectrogram analysis with AI-powered reasoning to identify technical mix issues and suggest creative instrumental additions. It bundles a React frontend, a FastAPI backend, and specialized audio processing tools (Sonic Annotator & Vamp Plugins) into a single, ready-to-run Docker image.
 
 ## 🚀 Features
-* **Waveform Analysis:** Upload WAV, MP3, or FLAC files and select specific regions for detailed inspection.
-* **Spectrogram Visualization:** Automatically generates Mel-frequency spectrograms to identify frequency clashes and mix issues.
-* **Dual AI Engines:**
-    * **Google Gemini 3.0:** Full multimodal analysis (listens to audio + looks at spectrograms) with "Thinking" capabilities.
-    * **OpenAI GPT-4o:** Native audio analysis for alternative feedback perspectives.
-* **Chord & Beat Detection:** Built-in Vamp Plugins (Queen Mary & Chordino) detect chords, tempo, and beats automatically.
-* **Interactive Chat:** Have a follow-up conversation with the AI to drill down into specific production techniques.
+
+* **🎛️ Dual Professional Modes:**
+    * **Engineer Mode:** Focuses on frequency balance, stereo width, and technical advice to help your mix sit correctly.
+    * **Producer Mode:** Detects chords and tempo to suggest arrangement layers, bass lines, and textures to fill out your track.
+* **🤖 Advanced AI Engines:** Supports **Gemini 3.0 Pro/Flash** (using native audio and spectrogram vision) and **GPT-4o Audio**.
+* **📊 Visual & Audio Analysis:** Generates Mel-frequency spectrograms to identify frequency clashes and technical hurdles.
+* **🎹 Chord & MIDI Integration:** Built-in **Vamp Plugins** (Queen Mary & Chordino) automatically detect chords and generate MIDI files for your project.
+* **🐳 One-Click Deployment:** Optimized for **TrueNAS Scale**, **Unraid**, or **Local Docker** with a single `docker-compose.yml`.
 
 ---
 
@@ -78,6 +79,8 @@ If you are installing this on a home server and accessing it from a different co
 * **Container Port 8000** -> Map to Node Port `9002`
 * **Environment Variable:** `GEMINI_API_KEY` = `your_actual_google_api_key`
 * **Environment Variable:** `VITE_API_URL` = `http://YOUR_SERVER_IP:9002`
+
+---
 
 ## 🐳 TrueNAS Scale Installation Guide
 
@@ -171,6 +174,8 @@ This application supports both Gemini 3 Flash and Gemini 3 Pro. However, please 
     * `429 Too Many Requests`: You have hit the minute/day quota for the Free Tier. **Solution:** Switch to **Gemini 3.0 Flash** (which has much higher limits) or wait for the quota to reset.
 * **Recommendation:** Default to **Gemini 3.0 Flash** for fast, reliable analysis. Use **Gemini 3.0 Pro** only for complex "Producer Mode" tasks, as it consumes quota much faster.
 
+---
+
 ## 🔍 Troubleshooting & Common Issues
 
 Since this app runs in a dual-container architecture on TrueNAS/Docker, most issues are related to networking or API restrictions.
@@ -206,6 +211,8 @@ Since this app runs in a dual-container architecture on TrueNAS/Docker, most iss
 * **Docker Desktop Memory Limits (Windows/Mac):**
     * **The Problem:** Large audio files or complex spectrogram generation can be RAM-intensive. Docker Desktop often defaults to only 2GB of RAM.
     * **The Fix:** If the container crashes during analysis, increase the memory limit in **Docker Desktop Settings > Resources** to at least 4GB.    
+
+---
 
 ## ⚖️ License & Attribution
 
