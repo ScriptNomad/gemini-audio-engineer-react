@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+python-multipart
+google-genai
+librosa
+matplotlib
+numpy
+pydub
+python-dotenv
+scipy
+openai
+mido
