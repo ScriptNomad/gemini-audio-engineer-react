@@ -3,7 +3,7 @@ FROM python:3.11-slim-bookworm
 
 # 2. Install System Dependencies
 # We only need the basics now because you did the hard work already!
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get upgrade && apt-get install -y \
     ffmpeg \
     curl \
     gnupg \
