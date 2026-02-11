@@ -2,7 +2,9 @@
 
 **Your intelligent mixing assistant in a container.**
 
-![Version](https://img.shields.io/badge/version-Gemini%203.0-blue)
+![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![License](https://img.shields.io/badge/license-Non--Commercial-orange)
+![Docker](https://img.shields.io/badge/deployment-Docker-green)
 ![Deployment](https://img.shields.io/badge/deployment-Docker-green)
 
 This is a containerized deployment of the **Gemini Audio Engineer**, a powerful tool that combines visual audio analysis with AI-powered mixing advice. It bundles a React frontend, a FastAPI backend, and specialized audio processing tools (Sonic Annotator & Vamp Plugins) into a single, ready-to-run Docker image.
