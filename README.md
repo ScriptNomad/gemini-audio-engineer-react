@@ -222,11 +222,11 @@ This project is a containerized distribution of open-source software.
 
 This project is distributed under a **Non-Commercial / Research License**. 
 
-* [cite_start]**Personal/Educational Use:** Free[cite: 5].
-* [cite_start]**Commercial Use:** Requires explicit permission and a separate license from the original author[cite: 8, 9].
-* [cite_start]**Redistribution:** Permitted for non-commercial purposes only, provided this license is included[cite: 7].
+* **Personal/Educational Use:** Free.
+* **Commercial Use:** Requires explicit permission and a separate license from the original author.
+* **Redistribution:** Permitted for non-commercial purposes only, provided this license is included.
 
-[cite_start]For full legal terms, please see the [LICENSE](./LICENSE) file included in this repository[cite: 3].
+For full legal terms, please see the [LICENSE](./LICENSE) file included in this repository.
 
 ### Application Code
 **Gemini Audio Engineer:** Copyright © 2026 Anthony Galati.
